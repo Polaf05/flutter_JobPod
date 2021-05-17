@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "27244452728",
+    "project_id": "flutter-jobpod",
+    "storage_bucket": "flutter-jobpod.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:27244452728:android:74323958546216591f468d",
+        "android_client_info": {
+          "package_name": "com.ipis.jobpod"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "27244452728-aasgj2b9283t259uk69rdl6qis1toch5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ipis.jobpod",
+            "certificate_hash": "ff26261f63e080c1f9635fbd190cda86f63b21cd"
+          }
+        },
+        {
+          "client_id": "27244452728-h05msbt2511n7br4gbfs1119ev9no82v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYqQrt-u5GTDCzKcCI2wi27bCwnApaw6U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "27244452728-h05msbt2511n7br4gbfs1119ev9no82v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
