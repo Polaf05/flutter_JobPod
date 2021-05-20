@@ -8,19 +8,13 @@ class Authentication extends StatefulWidget {
 }
 
 class _AuthenticationState extends State<Authentication> {
+  bool showSignin = true;
+  void toggleSignin() {
+    setState(() => showSignin = !showSignin);
+  }
+
   @override
   Widget build(BuildContext context) {
-    // return Scaffold(
-    //   appBar: AppBar(title: Text("JOBPOD")),
-    //   body: Signin(),
-    // );
-    bool showSignin = true;
-    void toggleSignin() {
-      setState(() {
-        showSignin = !showSignin;
-      });
-    }
-
     if (showSignin) {
       return Signin(toggle: toggleSignin);
     } else {
