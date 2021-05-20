@@ -24,7 +24,7 @@ class _SignupState extends State<Signup> {
               color: Color(0xFFD2F9DB),
               child: Container(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 50.0, vertical: 20.0),
+                    horizontal: 30.0, vertical: 20.0),
                 alignment: Alignment.bottomLeft,
                 child: Image(
                   image: AssetImage("assets/Icon Group.png"),
@@ -33,7 +33,7 @@ class _SignupState extends State<Signup> {
             ),
             Container(
               alignment: Alignment.centerLeft,
-              padding: const EdgeInsets.fromLTRB(50, 15, 50, 0),
+              padding: const EdgeInsets.fromLTRB(30, 15, 30, 0),
               child: Text(
                 "Sign up:",
                 style: GoogleFonts.roboto(
@@ -42,7 +42,7 @@ class _SignupState extends State<Signup> {
             ),
             Container(
               alignment: Alignment.center,
-              padding: const EdgeInsets.fromLTRB(50, 0, 50, 15),
+              padding: const EdgeInsets.fromLTRB(30, 0, 30, 15),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -98,7 +98,7 @@ class _SignupState extends State<Signup> {
             Container(
               alignment: Alignment.center,
               padding:
-                  const EdgeInsets.symmetric(horizontal: 50.0, vertical: 10.0),
+                  const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -134,7 +134,7 @@ class _SignupState extends State<Signup> {
             ),
             Container(
               alignment: Alignment.center,
-              padding: const EdgeInsets.fromLTRB(50, 0, 50, 0),
+              padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
               child: TextButton(
                 onPressed: () {},
                 child: Text(
@@ -145,7 +145,7 @@ class _SignupState extends State<Signup> {
             ),
             Container(
               alignment: Alignment.center,
-              padding: const EdgeInsets.fromLTRB(50, 50, 50, 0),
+              padding: const EdgeInsets.fromLTRB(30, 30, 30, 0),
               child: TextButton(
                 onPressed: () {
                   widget.toggle();
