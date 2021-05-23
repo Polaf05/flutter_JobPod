@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import "package:google_fonts/google_fonts.dart";
+import 'package:jobpod/services/auth.dart';
 
 class Signin extends StatefulWidget {
   final Function toggle;
@@ -12,6 +13,13 @@ class Signin extends StatefulWidget {
 }
 
 class _SigninState extends State<Signin> {
+  final AuthService _auth = AuthService();
+  final _formkey = GlobalKey<FormState>();
+
+  String email = "";
+  String password = "";
+  String error = "";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,20 +46,34 @@ class _SigninState extends State<Signin> {
                 )),
             Container(
                 padding: EdgeInsets.fromLTRB(35, 0, 35, 0),
-                child: Column(
-                  children: [
-                    TextFormField(
-                      decoration: InputDecoration(
-                          border: UnderlineInputBorder(),
-                          labelText: "Email or username"),
-                    ),
-                    TextFormField(
-                      decoration: InputDecoration(
-                          border: UnderlineInputBorder(),
-                          labelText: "Password"),
-                      obscureText: true,
-                    ),
-                  ],
+                child: Form(
+                  key: _formkey,
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        validator: (val) =>
+                            val.isEmpty ? 'Enter an Email' : null,
+                        onChanged: (val) {
+                          setState(() => email = val);
+                        },
+                        decoration: InputDecoration(
+                            border: UnderlineInputBorder(),
+                            labelText: "Email or username"),
+                      ),
+                      TextFormField(
+                        validator: (val) => val.length < 6
+                            ? 'Password must be 6 characters or more'
+                            : null,
+                        onChanged: (val) {
+                          setState(() => password = val);
+                        },
+                        decoration: InputDecoration(
+                            border: UnderlineInputBorder(),
+                            labelText: "Password"),
+                        obscureText: true,
+                      ),
+                    ],
+                  ),
                 )),
             Container(
               alignment: Alignment.topRight,
@@ -79,13 +101,17 @@ class _SigninState extends State<Signin> {
                       FontAwesomeIcons.facebookF,
                       color: Color(0xFF497A54),
                     ),
-                    onPressed: () {}),
+                    onPressed: () async {
+                      await _auth.resultFacebookSignIn();
+                    }),
                 IconButton(
                     icon: FaIcon(
                       FontAwesomeIcons.google,
                       color: Color(0xFF497A54),
                     ),
-                    onPressed: () {}),
+                    onPressed: () async {
+                      await _auth.signInWithGoogle();
+                    }),
                 IconButton(
                     icon: FaIcon(
                       FontAwesomeIcons.twitter,
@@ -104,7 +130,24 @@ class _SigninState extends State<Signin> {
                   style: GoogleFonts.roboto(
                       fontWeight: FontWeight.w500, fontSize: 25.89),
                 ),
-                onPressed: () {},
+                onPressed: () async {
+                  if (_formkey.currentState.validate()) {
+                    dynamic result =
+                        await _auth.signInFirebase(email, password);
+                    if (result == null) {
+                      setState(() {
+                        error = 'Email and Password did not match';
+                      });
+                    }
+                  }
+                },
+              ),
+            ),
+            Center(
+              child: Text(
+                error,
+                style: TextStyle(
+                    color: Color.fromRGBO(216, 181, 58, 1.0), fontSize: 14.0),
               ),
             ),
             Container(
