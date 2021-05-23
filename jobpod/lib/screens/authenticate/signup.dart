@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:google_fonts/google_fonts.dart";
 import "package:font_awesome_flutter/font_awesome_flutter.dart";
+import 'package:jobpod/services/auth.dart';
 
 class Signup extends StatefulWidget {
   final Function toggle;
@@ -12,6 +13,13 @@ class Signup extends StatefulWidget {
 }
 
 class _SignupState extends State<Signup> {
+  final AuthService _auth = AuthService();
+  final _formkey = GlobalKey<FormState>();
+
+  String email = "";
+  String password = "";
+  String error = "";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,56 +51,61 @@ class _SignupState extends State<Signup> {
             Container(
               alignment: Alignment.center,
               padding: const EdgeInsets.fromLTRB(30, 0, 30, 15),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  TextFormField(
-                    validator: (value) =>
-                        value.isEmpty ? "First name cannot be empty" : null,
-                    style: TextStyle(
-                        color: Color.fromRGBO(252, 252, 252, 1),
-                        fontFamily: 'RadikalLight'),
-                    decoration: InputDecoration(
-                        border: UnderlineInputBorder(), labelText: "Name"),
-                  ),
-                  TextFormField(
-                    validator: (value) =>
-                        value.isEmpty ? "First name cannot be empty" : null,
-                    style: TextStyle(
-                        color: Color.fromRGBO(252, 252, 252, 1),
-                        fontFamily: 'RadikalLight'),
-                    decoration: InputDecoration(
-                        border: UnderlineInputBorder(), labelText: "Email"),
-                  ),
-                  TextFormField(
-                    validator: (value) =>
-                        value.isEmpty ? "First name cannot be empty" : null,
-                    style: TextStyle(
-                        color: Color.fromRGBO(252, 252, 252, 1),
-                        fontFamily: 'RadikalLight'),
-                    decoration: InputDecoration(
-                        border: UnderlineInputBorder(), labelText: "Username"),
-                  ),
-                  TextFormField(
-                    validator: (value) =>
-                        value.isEmpty ? "First name cannot be empty" : null,
-                    style: TextStyle(
-                        color: Color.fromRGBO(252, 252, 252, 1),
-                        fontFamily: 'RadikalLight'),
-                    decoration: InputDecoration(
-                        border: UnderlineInputBorder(), labelText: "Password"),
-                  ),
-                  TextFormField(
-                    validator: (value) =>
-                        value.isEmpty ? "First name cannot be empty" : null,
-                    style: TextStyle(
-                        color: Color.fromRGBO(252, 252, 252, 1),
-                        fontFamily: 'RadikalLight'),
-                    decoration: InputDecoration(
-                        border: UnderlineInputBorder(),
-                        labelText: "Confirm Password"),
-                  ),
-                ],
+              child: Form(
+                key: _formkey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TextFormField(
+                      validator: (value) =>
+                          value.isEmpty ? "First name cannot be empty" : null,
+                      style: TextStyle(
+                          color: Color.fromRGBO(252, 252, 252, 1),
+                          fontFamily: 'RadikalLight'),
+                      decoration: InputDecoration(
+                          border: UnderlineInputBorder(), labelText: "Name"),
+                    ),
+                    TextFormField(
+                      validator: (value) =>
+                          value.isEmpty ? "First name cannot be empty" : null,
+                      style: TextStyle(
+                          color: Color.fromRGBO(252, 252, 252, 1),
+                          fontFamily: 'RadikalLight'),
+                      decoration: InputDecoration(
+                          border: UnderlineInputBorder(), labelText: "Email"),
+                    ),
+                    TextFormField(
+                      validator: (value) =>
+                          value.isEmpty ? "First name cannot be empty" : null,
+                      style: TextStyle(
+                          color: Color.fromRGBO(252, 252, 252, 1),
+                          fontFamily: 'RadikalLight'),
+                      decoration: InputDecoration(
+                          border: UnderlineInputBorder(),
+                          labelText: "Username"),
+                    ),
+                    TextFormField(
+                      validator: (value) =>
+                          value.isEmpty ? "First name cannot be empty" : null,
+                      style: TextStyle(
+                          color: Color.fromRGBO(252, 252, 252, 1),
+                          fontFamily: 'RadikalLight'),
+                      decoration: InputDecoration(
+                          border: UnderlineInputBorder(),
+                          labelText: "Password"),
+                    ),
+                    TextFormField(
+                      validator: (value) =>
+                          value.isEmpty ? "First name cannot be empty" : null,
+                      style: TextStyle(
+                          color: Color.fromRGBO(252, 252, 252, 1),
+                          fontFamily: 'RadikalLight'),
+                      decoration: InputDecoration(
+                          border: UnderlineInputBorder(),
+                          labelText: "Confirm Password"),
+                    ),
+                  ],
+                ),
               ),
             ),
             Container(
@@ -114,13 +127,17 @@ class _SignupState extends State<Signup> {
                             FontAwesomeIcons.facebookF,
                             color: Color(0xFF497A54),
                           ),
-                          onPressed: () {}),
+                          onPressed: () async {
+                            await _auth.resultFacebookSignIn();
+                          }),
                       IconButton(
                           icon: FaIcon(
                             FontAwesomeIcons.google,
                             color: Color(0xFF497A54),
                           ),
-                          onPressed: () {}),
+                          onPressed: () async {
+                            await _auth.signInWithGoogle();
+                          }),
                       IconButton(
                           icon: FaIcon(
                             FontAwesomeIcons.twitter,
@@ -136,7 +153,17 @@ class _SignupState extends State<Signup> {
               alignment: Alignment.center,
               padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
               child: TextButton(
-                onPressed: () {},
+                onPressed: () async {
+                  if (_formkey.currentState.validate()) {
+                    dynamic result =
+                        await _auth.signUpFirebase(email, password);
+                    if (result == null) {
+                      setState(() {
+                        error = 'Email and Password did not match';
+                      });
+                    }
+                  }
+                },
                 child: Text(
                   "Sign me up!",
                   style: GoogleFonts.roboto(fontSize: 25.89),
