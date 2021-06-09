@@ -32,10 +32,13 @@ class _SigninState extends State<Signin> {
             Container(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * 0.35,
-                alignment: Alignment.bottomLeft,
-                padding: EdgeInsets.fromLTRB(30, 0, 0, 15),
+                alignment: Alignment.center,
+                padding: EdgeInsets.fromLTRB(0, 160, 80, 0),
                 color: Color(0xFFD2F9DB),
-                child: Image(image: AssetImage("assets/Icon_Group.png"))),
+                child: Container(
+                  child:Image(image: AssetImage("assets/Icon_Group.png"), width: 420, height: 100,)
+                  )
+            ),
             Container(
                 alignment: Alignment.topLeft,
                 margin: EdgeInsets.fromLTRB(35, 15, 0, 0),

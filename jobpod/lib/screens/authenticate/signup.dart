@@ -33,11 +33,10 @@ class _SignupState extends State<Signup> {
               height: MediaQuery.of(context).size.height * 0.20,
               color: Color(0xFFD2F9DB),
               child: Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 30.0, vertical: 20.0),
-                alignment: Alignment.bottomLeft,
+                padding: EdgeInsets.fromLTRB(0, 60, 100, 0),
+                alignment: Alignment.center,
                 child: Image(
-                  image: AssetImage("assets/Icon Group.png"),
+                  image: AssetImage("assets/Icon_Group.png"), width: 420, height: 100,
                 ),
               ),
             ),
