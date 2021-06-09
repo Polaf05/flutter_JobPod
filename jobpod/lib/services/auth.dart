@@ -9,7 +9,7 @@ class AuthService {
   final googleSignIn = GoogleSignIn();
 
   Stream<Credentials> get user {
-    return _auth.authStateChanges().map((event) => null);
+    return _auth.authStateChanges().map(_userCredential);
   }
 
   Credentials _userCredential(User user) {
@@ -98,7 +98,6 @@ class AuthService {
       //add database
       //await DatabaseService(uid: user.uid)
       //  .updateUserData(user.email, user.displayName, "client");
-
       return _userCredential(user);
     } catch (e) {
       print(e.toString());

@@ -72,6 +72,7 @@ class _SignupState extends State<Signup> {
                       validator: (value) =>
                           value.isEmpty ? "Email cannot be empty" : null,
                       onChanged: (val) {
+                        print(email);
                         setState(() => email = val);
                       },
                       style: TextStyle(fontFamily: 'RadikalLight'),

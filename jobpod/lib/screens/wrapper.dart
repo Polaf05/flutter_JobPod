@@ -11,10 +11,10 @@ class Wrapper extends StatelessWidget {
 
     //will return auth if not logged in nad returns home if logged in
 
-    if (user != null) {
-      return Home();
-    } else {
+    if (user == null) {
       return Authentication();
+    } else {
+      return Home();
     }
   }
 }
