@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:jobpod/models/user.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:jobpod/services/database.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -32,11 +33,15 @@ class AuthService {
   }
 
   //Signup user using firebase
-  Future signUpFirebase(String email, String password) async {
+  Future signUpFirebase(
+      String email, String password, String name, String username) async {
     try {
       UserCredential result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       User user = result.user;
+
+      await DatabaseService(uid: user.uid).checkUserData(name, email, username);
+
       return _userCredential(user);
     } catch (e) {
       print(e);
@@ -69,8 +74,8 @@ class AuthService {
       User user = result.user;
 
       //add database
-      //await DatabaseService(uid: user.uid)
-      //  .updateUserData(user.email, user.displayName, "client");
+      await DatabaseService(uid: user.uid)
+          .checkUserData(user.displayName, user.email, "Not available");
 
       return _userCredential(user);
     } catch (e) {
@@ -95,9 +100,9 @@ class AuthService {
       UserCredential result = await _auth.signInWithCredential(credential);
       User user = result.user;
 
-      //add database
-      //await DatabaseService(uid: user.uid)
-      //  .updateUserData(user.email, user.displayName, "client");
+      await DatabaseService(uid: user.uid)
+          .checkUserData(user.displayName, user.email, "Not available");
+
       return _userCredential(user);
     } catch (e) {
       print(e.toString());

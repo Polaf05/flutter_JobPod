@@ -72,7 +72,6 @@ class _SignupState extends State<Signup> {
                       validator: (value) =>
                           value.isEmpty ? "Email cannot be empty" : null,
                       onChanged: (val) {
-                        print(email);
                         setState(() => email = val);
                       },
                       style: TextStyle(fontFamily: 'RadikalLight'),
@@ -163,8 +162,8 @@ class _SignupState extends State<Signup> {
               child: TextButton(
                 onPressed: () async {
                   if (_formkey.currentState.validate()) {
-                    dynamic result =
-                        await _auth.signUpFirebase(email, password);
+                    dynamic result = await _auth.signUpFirebase(
+                        email, password, name, username);
                     if (result == null) {
                       setState(() {
                         error = 'Email and Password did not match';
