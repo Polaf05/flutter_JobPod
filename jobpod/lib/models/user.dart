@@ -11,5 +11,6 @@ class UserInfo extends Credentials {
   final String username;
   final String displayPicture;
   final String bio;
-  
+
+  UserInfo({this.username, this.displayPicture, this.bio});
 }

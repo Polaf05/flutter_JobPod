@@ -16,7 +16,9 @@ class _SignupState extends State<Signup> {
   final AuthService _auth = AuthService();
   final _formkey = GlobalKey<FormState>();
 
+  String name = "";
   String email = "";
+  String username = "";
   String password = "";
   String error = "";
 
@@ -58,51 +60,56 @@ class _SignupState extends State<Signup> {
                   children: [
                     TextFormField(
                       validator: (value) =>
-                          value.isEmpty ? "First name cannot be empty" : null,
-                      style: TextStyle(
-                          color: Color.fromRGBO(252, 252, 252, 1),
-                          fontFamily: 'RadikalLight'),
+                          value.isEmpty ? "Name cannot be empty" : null,
+                      onChanged: (val) {
+                        setState(() => name = val);
+                      },
+                      style: TextStyle(fontFamily: 'RadikalLight'),
                       decoration: InputDecoration(
                           border: UnderlineInputBorder(), labelText: "Name"),
                     ),
                     TextFormField(
                       validator: (value) =>
-                          value.isEmpty ? "First name cannot be empty" : null,
-                      style: TextStyle(
-                          color: Color.fromRGBO(252, 252, 252, 1),
-                          fontFamily: 'RadikalLight'),
+                          value.isEmpty ? "Email cannot be empty" : null,
+                      onChanged: (val) {
+                        setState(() => email = val);
+                      },
+                      style: TextStyle(fontFamily: 'RadikalLight'),
                       decoration: InputDecoration(
                           border: UnderlineInputBorder(), labelText: "Email"),
                     ),
                     TextFormField(
                       validator: (value) =>
-                          value.isEmpty ? "First name cannot be empty" : null,
-                      style: TextStyle(
-                          color: Color.fromRGBO(252, 252, 252, 1),
-                          fontFamily: 'RadikalLight'),
+                          value.isEmpty ? "Username cannot be empty" : null,
+                      onChanged: (val) {
+                        setState(() => username = val);
+                      },
+                      style: TextStyle(fontFamily: 'RadikalLight'),
                       decoration: InputDecoration(
                           border: UnderlineInputBorder(),
                           labelText: "Username"),
                     ),
                     TextFormField(
-                      validator: (value) =>
-                          value.isEmpty ? "First name cannot be empty" : null,
-                      style: TextStyle(
-                          color: Color.fromRGBO(252, 252, 252, 1),
-                          fontFamily: 'RadikalLight'),
+                      validator: (value) => value.length > 6
+                          ? "Password must be 6 character long"
+                          : null,
+                      onChanged: (val) {
+                        setState(() => password = val);
+                      },
+                      style: TextStyle(fontFamily: 'RadikalLight'),
                       decoration: InputDecoration(
                           border: UnderlineInputBorder(),
                           labelText: "Password"),
+                      obscureText: true,
                     ),
                     TextFormField(
                       validator: (value) =>
-                          value.isEmpty ? "First name cannot be empty" : null,
-                      style: TextStyle(
-                          color: Color.fromRGBO(252, 252, 252, 1),
-                          fontFamily: 'RadikalLight'),
+                          value != password ? "Passowrd did not match" : null,
+                      style: TextStyle(fontFamily: 'RadikalLight'),
                       decoration: InputDecoration(
                           border: UnderlineInputBorder(),
                           labelText: "Confirm Password"),
+                      obscureText: true,
                     ),
                   ],
                 ),
